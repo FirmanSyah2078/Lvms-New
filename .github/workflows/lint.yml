@@ -33,6 +33,8 @@ jobs:
         run: |
           composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
           pnpm install
+        env:
+          PNPM_DANGEROUSLY_ALLOW_ALL_BUILDS: true
 
       - name: Run Pint
         run: vendor/bin/pint
