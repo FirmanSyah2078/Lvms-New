@@ -17,7 +17,7 @@ jobs:
   quality:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4.2.2
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
@@ -25,14 +25,13 @@ jobs:
           php-version: '8.4'
 
       - name: Setup pnpm
-        uses: pnpm/action-setup@v4
+        uses: pnpm/action-setup@v4.1.0
         with:
-          version: latest
+          version: 10.32.0
 
       - name: Install Dependencies
         run: |
           composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
-          pnpm approve-builds @tailwindcss/oxide esbuild
           pnpm install
 
       - name: Run Pint
