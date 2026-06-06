@@ -58,8 +58,6 @@ import {
   IconChevronsRight,
   IconCircleCheckFilled,
   IconX,
-  IconWifi,
-  IconWifiOff,
   IconServer,
   IconUser,
   IconClock,
@@ -100,7 +98,7 @@ import {
 // 3. SCHEMA DAN KOMPONEN UNTUK TABLE ADVANCED - TEMP GELAP STANDAR
 // =================================================================
 
-const schema = z.object({
+const _schema = z.object({
   id: z.string(),
   fullName: z.string(),
   nis: z.string(),
@@ -109,7 +107,7 @@ const schema = z.object({
   status: z.string(),
 })
 
-const columns: ColumnDef<z.infer<typeof schema>>[] = [
+const columns: ColumnDef<z.infer<typeof _schema>>[] = [
   {
     accessorKey: "id",
     header: () => (
@@ -275,7 +273,7 @@ const columns: ColumnDef<z.infer<typeof schema>>[] = [
 function AdvancedDataTable({
   data: initialData,
 }: {
-  data: z.infer<typeof schema>[]
+  data: z.infer<typeof _schema>[]
 }) {
   const [data] = React.useState(() => initialData)
   const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({})
