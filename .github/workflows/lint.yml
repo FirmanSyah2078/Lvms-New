@@ -32,9 +32,8 @@ jobs:
       - name: Install Dependencies
         run: |
           composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+          pnpm approve-builds @tailwindcss/oxide esbuild
           pnpm install
-        env:
-          PNPM_DANGEROUSLY_ALLOW_ALL_BUILDS: true
 
       - name: Run Pint
         run: vendor/bin/pint

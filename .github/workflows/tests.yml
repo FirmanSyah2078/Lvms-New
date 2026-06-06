@@ -40,9 +40,9 @@ jobs:
           cache: 'pnpm'
 
       - name: Install Node Dependencies
-        run: pnpm install --frozen-lockfile
-        env:
-          PNPM_DANGEROUSLY_ALLOW_ALL_BUILDS: true
+        run: |
+          pnpm approve-builds @tailwindcss/oxide esbuild
+          pnpm install --frozen-lockfile
 
       - name: Install Dependencies
         run: composer install --no-interaction --prefer-dist --optimize-autoloader
