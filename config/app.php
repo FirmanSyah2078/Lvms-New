@@ -55,13 +55,23 @@ return [
     | Application URL
     |--------------------------------------------------------------------------
     |
-    | This URL is used by the console to properly generate URLs when using
-    | the Artisan command line tool. You should set this to the root of
-    | the application so that it's available within Artisan commands.
+    | Logika otomatis untuk mendeteksi antara Server Bawaan (Artisan Serve)
+    | dan Server Eksternal (Laragon/XAMPP) berdasarkan SAPI PHP.
     |
     */
 
-    'url' => env('APP_URL', 'http://localhost'),
+    'url' => env('APP_URL', (function() {
+        $folderName = strtolower(basename(base_path()));
+        
+        // Cek jika menggunakan php artisan serve
+        if (php_sapi_name() === 'cli-server') {
+            return env('URL_LOCAL', 'http://localhost:8000');
+        }
+        
+        // Cek jika menggunakan Laragon/XAMPP/Lainnya
+        $extTemplate = env('URL_EXT', 'https://{folder}.test');
+        return str_replace('{folder}', $folderName, $extTemplate);
+    })()),
 
     /*
     |--------------------------------------------------------------------------

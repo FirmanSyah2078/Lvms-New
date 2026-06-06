@@ -3,10 +3,22 @@
     "type": "module",
     "scripts": {
         "dev": "vite",
+        "serve": "php artisan serve",
+        "watch": "php artisan schedule:work",
+        "queue": "php artisan queue:listen --tries=1",
+        "logs": "php artisan pail",
+        "test": "php artisan test",
+
+        "ext:dev": "concurrently -c \"#93c5fd,#fdba74\" \"pnpm dev\" \"pnpm watch\" --names='vite,watch'",
+        "ext:full": "concurrently -c \"#93c5fd,#fdba74,#c4b5fd\" \"pnpm dev\" \"pnpm watch\" \"pnpm queue\" --names='vite,watch,queue'",
+
+        "local:dev": "concurrently -c \"#93c5fd,#fb7185\" \"pnpm dev\" \"pnpm serve\" --names='vite,server'",
+        "local:watch": "concurrently -c \"#93c5fd,#fb7185,#fdba74\" \"pnpm dev\" \"pnpm serve\" \"pnpm watch\" --names='vite,server,watch'",
+        "local:full": "concurrently -c \"#93c5fd,#fb7185,#fdba74,#c4b5fd\" \"pnpm dev\" \"pnpm serve\" \"pnpm watch\" \"pnpm queue\" --names='vite,server,watch,queue'",
+
         "build": "vite build",
-        "server": "concurrently \"php artisan serve\" \"pnpm run dev\"",
-        "work": "concurrently \"pnpm run dev\" \"php artisan schedule:work\"",
         "build:ssr": "vite build && vite build --ssr",
+
         "format": "prettier --write resources/",
         "format:check": "prettier --check resources/",
         "lint": "eslint . --fix",
